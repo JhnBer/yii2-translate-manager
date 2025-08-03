@@ -21,7 +21,8 @@
     color: var(--color-light-bg);
 }
 
-.ui-dialog .ui-button {
+.ui-dialog .ui-dialog-buttonset button {
+    padding: 0.6rem 1.2rem;
     background: var(--color-light-bg);
     border: none;
     border-radius: 0;
@@ -29,7 +30,7 @@
     font-weight: normal;
 }
 
-.ui-dialog .ui-button:hover {
+.ui-dialog .ui-dialog-buttonset button:hover {
     background: var(--color-primary);
     border: none;
     color: var(--color-white);
