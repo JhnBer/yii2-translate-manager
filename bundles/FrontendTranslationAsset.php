@@ -24,5 +24,6 @@ class FrontendTranslationAsset extends AssetBundle
     public $css = [
         'stylesheets/helpers.css',
         'stylesheets/frontend-translation.css',
+        'stylesheets/frontend-translate-override.css',
     ];
 }
