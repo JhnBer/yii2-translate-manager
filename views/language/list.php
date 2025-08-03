@@ -26,6 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'class' => \yii\bootstrap5\LinkPager::class,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'language_id',
@@ -34,10 +37,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => Language::getStatusNames(),
                 'attribute' => 'status',
-                'filterInputOptions' => ['class' => 'form-control', 'id' => 'status'],
+                'filterInputOptions' => [
+                    'class' => 'form-control',
+                    'id' => 'status',
+                    'prompt' => Yii::t('language', 'All'),
+                ],
                 'label' => Yii::t('language', 'Status'),
                 'content' => function ($language) {
-                    return Html::activeDropDownList($language, 'status', Language::getStatusNames(), ['class' => 'status', 'id' => $language->language_id, 'data-url' => Yii::$app->urlManager->createUrl('/translatemanager/language/change-status')]);
+                    return Html::activeDropDownList(
+                        $language,
+                        'status',
+                        Language::getStatusNames(),
+                        [
+                            'class' => 'status btn-md btn-primary btn dropdown-toggle dropdown-toggle-split btn-secondary',
+                            'id' => $language->language_id,
+                            'data-url' => Yii::$app->urlManager->createUrl('/translatemanager/language/change-status'),
+                        ]
+                    );
                 },
             ],
             [
