@@ -71,3 +71,8 @@ body #toggle-translate {
     color: var(--color-primary);
     font-weight: bold;
 }
+
+.language-item {
+    font-family: inherit;
+    font-weight: inherit;
+}
