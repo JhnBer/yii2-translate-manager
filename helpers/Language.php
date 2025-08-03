@@ -25,6 +25,7 @@ class Language
      * @var string parent span for front end translation.
      */
     private static $_template = '<span class="language-item" data-category="{category}" data-hash="{hash}" data-language_id="{language_id}" data-params="{params}">{message}</span>';
+    private static $_template_attr = '{attr}="{message}" data-translatable-attr="{attr}" data-translatable-category="{category}" data-translatable-hash="{hash}" data-translatable-lang="{lang}"';
 
     /**
      * Registering JavaScripts for client side multilingual support.
@@ -46,12 +47,20 @@ class Language
     public static function t($category, $message, $params = [], $language = null)
     {
         if (self::isEnabledTranslate()) {
-            return strtr(self::$_template, [
+            $template = self::$_template;
+
+            if (isset($params['__tr-attr']) && $params['__tr-attr'] !== '') {
+                $template = self::$_template_attr;
+            }
+
+            return strtr($template, [
                 '{language_id}' => $language ? $language : Yii::$app->language,
                 '{category}' => $category,
                 '{message}' => Yii::t($category, $message, $params, $language),
                 '{params}' => \yii\helpers\Html::encode(\yii\helpers\Json::encode($params)),
                 '{hash}' => md5($message),
+                '{lang}' => $language ? $language : Yii::$app->language,
+                '{attr}' => isset($params['__tr-attr']) ? $params['__tr-attr'] : '',
             ]);
         } else {
             return Yii::t($category, $message, $params, $language);

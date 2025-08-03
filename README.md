@@ -299,9 +299,27 @@ use lajax\translatemanager\helpers\Language as Lx;
 Lx::t('category', 'Apple');
 Lx::t('category', 'Hello {name}!', ['name' => 'World']);
 Lx::t('category', "Don't be so upset.");
+Lx::t('category', 'Alt text for image', ['__tr-attr' => 'alt']);
 ```
 
 **IMPORTANT: The lajax\translatemanager\helpers\Language::t() (Lx::t()) function currently does not support the translation of HTMLattributes**
+
+### single attribute translation example
+```php
+Lx::t('category', 'Alt text for image', ['__tr-attr' => 'alt']);
+```
+
+This function will create the following HTML:
+
+```html
+alt="Alt text for image"
+data-translatable-attr="alt" 
+data-translatable-category="category" 
+data-translatable-hash="hash_here" 
+data-translatable-lang="xx-XX"
+```
+Attributes usually not visible, so you will see 🌐 icon.
+
 
 PHP arrays:
 

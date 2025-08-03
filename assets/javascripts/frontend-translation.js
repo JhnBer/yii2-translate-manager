@@ -1,4 +1,4 @@
-/** 
+/**
  * Created on : 2014.12.04., 16:58:40
  * Author     : Lajos Molnar <lajax.m@gmail.com>
  * since 1.2
@@ -26,24 +26,26 @@ var FrontendTranslation = {
                 {
                     text: lajax.t('Save'),
                     click: $.proxy(
-                            function () {
+                        function () {
                             var $form = $('#transslate-manager-translation-form');
-                                $.ajax({
-                                    type: $form.attr('method'),
-                                    url: $form.attr('action'),
-                                    data:$form.serialize(),
-                                    dataType: 'json',
-                                    success: $.proxy(function(errors) {
-                                        if (errors.length === 0) {
+                            $.ajax({
+                                type: $form.attr('method'),
+                                url: $form.attr('action'),
+                                data:$form.serialize(),
+                                dataType: 'json',
+                                success: $.proxy(function(errors) {
+                                    if (errors.length === 0) {
+                                        if (!$language_item.hasClass('translation-icon')) {
                                             $('span[data-hash=' + $language_item.data('hash') + ']').html(lajax.t($.trim($form.find('textarea').val()), this.params));
-                                            $('#translate-manager-div').dialog('close');
-                                        } else {
-                                            helpers.showErrorMessages(errors, '#languagetranslate-');
                                         }
-                                    },this)
-                        
-                                });
-                                
+                                        $('#translate-manager-div').dialog('close');
+                                    } else {
+                                        helpers.showErrorMessages(errors, '#languagetranslate-');
+                                    }
+                                },this)
+
+                            });
+
                         }, this)
                 },
                 {
@@ -54,15 +56,15 @@ var FrontendTranslation = {
                 }
             ],
             create: $.proxy(
-                    function (event) {
-                        $(event.target).load(this.dialogURL, {
-                            hash: $language_item.data('hash'),
-                            category: $language_item.data('category'),
-                            language_id: $language_item.data('language_id')
-                        }, function () {
-                            $('#languagetranslate-translation').focus();
-                        });
-                    }, this),
+                function (event) {
+                    $(event.target).load(this.dialogURL, {
+                        hash: $language_item.data('hash'),
+                        category: $language_item.data('category'),
+                        language_id: $language_item.data('language_id')
+                    }, function () {
+                        $('#languagetranslate-translation').focus();
+                    });
+                }, this),
             close: function () {
                 $('#translate-manager-div').dialog('destroy').html('');
             }
@@ -81,11 +83,44 @@ var FrontendTranslation = {
             }
         }, this));
     },
+    handleIcons: function () {
+        $('img[data-translatable-attr]').each(function () {
+            var $img = $(this);
+
+            $img.next('.translation-icon').remove();
+
+            if (FrontendTranslation.enabledTranslate) {
+                var $icon = $(
+                    '<span class="translation-icon" style="display:block; position:relative; height:0; width:0;"' +
+                    'data-hash="' + $img.data('translatable-hash') + '" ' +
+                    'data-language_id="' + $img.data('translatable-lang') + '" ' +
+                    'data-category="' + $img.data('translatable-category') + '" ' +
+                    '>' +
+                    '<span style="display:flex; justify-content: center; align-items: center; ' +
+                    'height: 20px; width: 20px; cursor:pointer; position:absolute; ' +
+                    'top:-5px; left:5px; ' +
+                    'background: #fff; transform: translateY(-100%)" ' +
+                    '>🌐</span>' +
+                    '</span>'
+                );
+
+                $icon.click(function (event) {
+                    FrontendTranslation.dialog($icon);
+                    event.stopPropagation();
+                    return false;
+                });
+
+                $img.after($icon);
+            }
+        });
+    },
     toggleTranslate: function () {
         var elements = $('.language-item');
         elements.toggleClass('translatable');
         this.enabledTranslate = elements.hasClass('translatable');
         this.addClick();
+
+        this.handleIcons();
     },
     init: function () {
         $('body').on('change', '#translate-manager-language-source', $.proxy(function () {
