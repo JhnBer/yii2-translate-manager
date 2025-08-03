@@ -23,6 +23,7 @@ class TranslateManagerAsset extends AssetBundle
      */
     public $css = [
         'stylesheets/translate-manager.css',
+        'stylesheets/frontend-translate-override.css',
     ];
 
     /**

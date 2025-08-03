@@ -1,0 +1,73 @@
+:root {
+    --color-primary: #f15654;
+    --color-light-bg: #fff4f8;
+    --color-white: #fff;
+}
+
+.ui-dialog {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+.ui-dialog .ui-widget-header {
+    background: var(--color-primary);
+    border: none;
+    border-radius: 0;
+    font-weight: normal;
+}
+
+.ui-dialog .ui-dialog-title {
+    color: var(--color-light-bg);
+}
+
+.ui-dialog .ui-button {
+    background: var(--color-light-bg);
+    border: none;
+    border-radius: 0;
+    color: var(--color-primary);
+    font-weight: normal;
+}
+
+.ui-dialog .ui-button:hover {
+    background: var(--color-primary);
+    border: none;
+    color: var(--color-white);
+}
+
+.ui-dialog .ui-dialog-content.ui-widget-content {
+    padding: 0;
+}
+
+.ui-dialog #translate-manager-dialog .translate-manager-message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--color-light-bg);
+    border: none;
+    border-radius: 0;
+    color: var(--color-primary);
+    font-weight: normal;
+}
+
+.ui-dialog #translate-manager-dialog .translate-manager-message textarea {
+    border: 1px solid var(--color-primary);
+}
+
+#translate-manager-language-source {
+    padding: 0.6rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-primary);
+    border-radius: 0;
+    color: var(--color-primary);
+    font-weight: normal;
+    margin-left: 0.4rem;
+}
+
+body #toggle-translate {
+    padding: 0.6rem 1.2rem;
+    background: var(--color-light-bg);
+    border: 1px solid var(--color-primary);
+    border-radius: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
